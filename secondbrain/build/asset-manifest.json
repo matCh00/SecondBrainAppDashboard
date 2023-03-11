@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/SecondBrainAppDashboard/static/css/main.f57ab115.css",
-    "main.js": "/SecondBrainAppDashboard/static/js/main.f27d973f.js",
+    "main.css": "/SecondBrainAppDashboard/static/css/main.934731c4.css",
+    "main.js": "/SecondBrainAppDashboard/static/js/main.ab111a9e.js",
     "static/media/primeicons.svg": "/SecondBrainAppDashboard/static/media/primeicons.e1441b135b3ca9ad643c.svg",
     "static/media/primeicons.eot": "/SecondBrainAppDashboard/static/media/primeicons.d44157bdfa026dc877af.eot",
     "static/media/primeicons.woff": "/SecondBrainAppDashboard/static/media/primeicons.10d3152104f2208ac82a.woff",
     "static/media/primeicons.ttf": "/SecondBrainAppDashboard/static/media/primeicons.ea5358601d0a3fd6670b.ttf",
     "static/media/primeicons.woff2": "/SecondBrainAppDashboard/static/media/primeicons.78172950b335ccdb94e2.woff2",
     "index.html": "/SecondBrainAppDashboard/index.html",
-    "main.f57ab115.css.map": "/SecondBrainAppDashboard/static/css/main.f57ab115.css.map",
-    "main.f27d973f.js.map": "/SecondBrainAppDashboard/static/js/main.f27d973f.js.map"
+    "main.934731c4.css.map": "/SecondBrainAppDashboard/static/css/main.934731c4.css.map",
+    "main.ab111a9e.js.map": "/SecondBrainAppDashboard/static/js/main.ab111a9e.js.map"
   },
   "entrypoints": [
-    "static/css/main.f57ab115.css",
-    "static/js/main.f27d973f.js"
+    "static/css/main.934731c4.css",
+    "static/js/main.ab111a9e.js"
   ]
 }

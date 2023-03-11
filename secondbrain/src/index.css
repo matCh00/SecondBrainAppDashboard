@@ -1,0 +1,32 @@
+:root {
+  --ff: "Lato", sans-serif;
+  --fw: 500;
+}
+
+
+/* główne */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline-color: transparent;
+  text-decoration: none;
+  list-style: none;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  font-family: var(--ff);
+  font-weight: var(--fw);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.3;
+}
