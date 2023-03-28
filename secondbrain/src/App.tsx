@@ -11,6 +11,7 @@ import DashboardPage from './pages/DashboardPage/DashboardPage';
 import UsersPage from './pages/UsersPage/UsersPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import { AuthContext } from './context/AuthContext';
+import { addNote } from './backend/api';
 
 export const githubUrlRoot = '/SecondBrainAppDashboard'
 
@@ -22,6 +23,7 @@ function App() {
 
 
   const handleLogin = () => {
+    addNote('first', 'name', [{code: 'code1', name: 'name1'}, {code: 'code2', name: 'name2'}])
     setLoggedIn(true);
   }
 
