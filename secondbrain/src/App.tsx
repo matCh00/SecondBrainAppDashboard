@@ -1,13 +1,11 @@
 import React, { useContext, useState } from 'react';
 import './app.css';
-import "primereact/resources/themes/vela-blue/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Menubar } from 'primereact/menubar';
 import { MenuItem } from 'primereact/menuitem';
 import { Button } from 'primereact/button';
-import DashboardPage from './pages/DashboardPage/DashboardPage';
+import NotesListPage from './pages/NotesListPage/NotesListPage';
+import NewNotePage from './pages/NewNotePage/NewNotePage';
 import UsersPage from './pages/UsersPage/UsersPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import { AuthContext } from './context/AuthContext';
@@ -34,24 +32,31 @@ function App() {
 
   const [items, setItems] = useState<MenuItem[]>([
     {
-      label: 'Dashboard',
-      icon: 'pi pi-fw pi-home',
+      label: 'Notes List',
+      icon: 'pi pi-fw pi-list',
       command: () => {
-        navigate(githubUrlRoot + '/')
+        navigate(githubUrlRoot + '/');
+      },
+    },
+    {
+      label: 'New Note',
+      icon: 'pi pi-fw pi-plus',
+      command: () => {
+        navigate(githubUrlRoot + '/new');
       },
     },
     {
       label: 'Users',
       icon: 'pi pi-fw pi-users',
       command: () => {
-        navigate(githubUrlRoot + '/users')
+        navigate(githubUrlRoot + '/users');
       },
     },
     {
       label: 'Settings',
       icon: 'pi pi-fw pi-cog',
       command: () => {
-        navigate(githubUrlRoot + '/settings')
+        navigate(githubUrlRoot + '/settings');
       },
     },
   ]);
@@ -69,7 +74,9 @@ function App() {
       <Menubar model={items} end={end} />
 
       <Routes>
-        <Route path={githubUrlRoot + "/"} element={<DashboardPage />} />
+        <Route path={githubUrlRoot + "/"} element={<NotesListPage />} />
+
+        <Route path={githubUrlRoot + "/new"} element={<NewNotePage />} />
 
         <Route path={githubUrlRoot + "/users"} element={<UsersPage />} />
 
