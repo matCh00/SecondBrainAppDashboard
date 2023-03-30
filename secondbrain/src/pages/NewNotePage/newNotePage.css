@@ -1,0 +1,4 @@
+.container {
+  resize: vertical;
+  overflow: auto;
+}
