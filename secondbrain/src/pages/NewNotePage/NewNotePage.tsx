@@ -52,7 +52,7 @@ function NewNotePage() {
 
   const handleSave = () => {  
     addNote(type, name, editors).then(() => {
-      setEditors([{key: 0, code: '', language: 'typescript'}])
+      setEditors([])
     });
   }
   
