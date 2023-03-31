@@ -6,23 +6,16 @@ import { AuthContext } from '../../context/AuthContext';
 import { addNote } from '../../backend/api';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
+import { types } from '../../models/Types';
 
 function NewNotePage() {
 
   const {loggedIn} = useContext(AuthContext);
 
-  const [editors, setEditors] = useState([{key: 0, code: '', language: 'typescript'}]);
   const [type, setType] = useState('');
   const [name, setName] = useState('');
+  const [editors, setEditors] = useState([{key: 0, code: '', language: 'typescript'}]);
 
-  const types = [
-    {name: 'Angular', value: 'Angular'},
-    {name: 'HTML', value: 'HTML'},
-    {name: 'CSS', value: 'CSS'},
-    {name: 'React', value: 'React'},
-    {name: 'React Native', value: 'React Native'},
-    {name: 'Flutter', value: 'Flutter'},
-  ]
 
   const handleEditorChange = (value?: string, index?: number) => {
     let chosen = editors[index ? index : 0];
@@ -32,14 +25,17 @@ function NewNotePage() {
     setEditors(arr);   
   }
 
+
   const handleAddCode = () => {
     setEditors([...editors, {key: editors.length, code: '', language: 'css'}]);
   }
+
 
   const handleRemoveCode = (key: number) => {   
     let arr = editors.filter(e => e.key !== key);
     setEditors(arr);
   }
+
 
   const handleChangeLang = (key: number, language: string) => {  
     let chosen = editors.find(e => e.key === key);
@@ -50,12 +46,14 @@ function NewNotePage() {
     setEditors(arr);       
   }
 
+  
   const handleSave = () => {  
     addNote(type, name, editors).then(() => {
       setEditors([])
     });
   }
   
+
   return (
     <div className='px-3 pb-3 flex flex-wrap justify-content-around'>
 

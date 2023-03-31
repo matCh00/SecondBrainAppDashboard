@@ -21,6 +21,9 @@
   outline-color: transparent;
   text-decoration: none;
   list-style: none;
+
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 
