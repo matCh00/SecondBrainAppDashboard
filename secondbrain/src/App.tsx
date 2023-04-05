@@ -41,7 +41,7 @@ function App() {
       label: 'New Note',
       icon: 'pi pi-fw pi-plus',
       command: () => {
-        navigate(githubUrlRoot + '/new');
+        navigate(githubUrlRoot + '/new', {state: {init: true}});
       },
     },
     {

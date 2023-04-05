@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './newNotePage.css';
 import Editor from "@monaco-editor/react";
 import { Button } from 'primereact/button';
@@ -7,6 +7,7 @@ import { addNote } from '../../backend/api';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { types } from '../../models/Types';
+import { useLocation } from 'react-router-dom';
 
 function NewNotePage() {
 
@@ -15,6 +16,25 @@ function NewNotePage() {
   const [type, setType] = useState('');
   const [name, setName] = useState('');
   const [editors, setEditors] = useState([{key: 0, code: '', language: 'typescript'}]);
+
+  const { state } = useLocation();
+
+
+  useEffect(() => {
+    if (!state) 
+      return;
+
+    if (state.init) {
+      setType('');
+      setName('');
+      setEditors([]);
+    }
+    else {
+      setType(state.type);
+      setName(state.name);
+      setEditors(state.code['code']);
+    }
+  }, [state])
 
 
   const handleEditorChange = (value?: string, index?: number) => {
@@ -74,6 +94,7 @@ function NewNotePage() {
               height={Math.max(80 / (editors?.length % 2 === 0 ? editors?.length/2 : Math.floor(editors?.length/2)+1), 30) + 'vh'}
               width='42vw'
               language={e.language}
+              value={e.code}
               theme='vs-dark'
               onChange={(value) => handleEditorChange(value, index)}
             />
