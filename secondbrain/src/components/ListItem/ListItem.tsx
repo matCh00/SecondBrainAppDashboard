@@ -14,6 +14,7 @@ function ListItem(props: Props) {
   const [codes, setCodes] = useState<INote[]>([]);
 
   
+  /** po każdej zmianie props.code */
   useUpdateEffect (() => {
     setCodes(props.code);
   }, [props.code]);

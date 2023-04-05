@@ -9,7 +9,6 @@ import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { ConfirmPopup, confirmPopup } from 'primereact/confirmpopup';
 import { Toast } from 'primereact/toast';
 
@@ -20,38 +19,17 @@ type Props = {
 
 function List(props: Props) {
 
-  const {loggedIn} = useContext(AuthContext);
-  const navigate = useNavigate();
-
   const [notes, setNotes] = useState<INoteGroup[]>([]);
   const [notesFiltered, setNotesFiltered] = useState<INoteGroup[]>([]);
 
+  const {loggedIn} = useContext(AuthContext);
 
+  const navigate = useNavigate();
 
   const toast = useRef<Toast>(null);
 
-  const accept = (name: string) => {
-    deleteNote(props.type, name).then(() => {
-      setNotes(notes => notes.filter(n => n.name !== name))
-    })
-      
-    toast.current!.show({ severity: 'success', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-  };
 
-  const reject = () => {
-    toast.current!.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-  };
-
-  const confirmDelete = (name: string) => {
-    confirmPopup({
-        message: 'Are you sure you want to delete note?',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => accept(name),
-        reject
-    });
-  };
-
-  
+  /** po każdej zmianie prop.type */
   useUpdateEffect (() => {
     getNotes(types.find(t => t.name === props.type)?.value!).then(
       (res) => {
@@ -61,20 +39,48 @@ function List(props: Props) {
   }, [props.type]);
 
 
+  /** po każdej zmianie props.searchValue i notes */
   useUpdateEffect (() => {
     if (!props.searchValue || props.searchValue.length < 1) {
       setNotesFiltered(notes);
       return;
     }
-    
     let tempNotes = notes.filter(n => n.name.includes(props.searchValue));
     setNotesFiltered(tempNotes);
   }, [props.searchValue, notes]);
 
 
+  /** dialog */
+  const confirmDelete = (name: string) => {
+    confirmPopup({
+        message: 'Are you sure you want to delete note?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => accept(name),
+        reject
+    });
+  };
+
+
+  /** potwierdzenie usunięcia */
+  const accept = (name: string) => {
+    deleteNote(props.type, name).then(() => {
+      setNotes(notes => notes.filter(n => n.name !== name))
+    })
+      
+    toast.current!.show({ severity: 'success', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+  };
+
+
+  /** zaprzeczenie usunięcia */
+  const reject = () => {
+    toast.current!.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+  };
+
+
+  /** sklonowanie notatki */
   const handleClone = (name: string) => {
-    let code = notes.find(n => n.name === name);
-    navigate('new', {state: {type: props.type, name, code}})
+    let codes = notes.find(n => n.name === name);
+    navigate('new', {state: {type: props.type, name, codes}})
   }
 
   
@@ -100,7 +106,7 @@ function List(props: Props) {
             key={i.name + index} 
             className='mb-3'
           >
-            <ListItem code={i.code} />
+            <ListItem code={i.codes} />
           </Card>
         )
       })}

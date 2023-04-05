@@ -8,19 +8,23 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { types } from '../../models/Types';
 import { useLocation } from 'react-router-dom';
+import { INote } from '../../models/INote';
 
 function NewNotePage() {
 
-  const {loggedIn} = useContext(AuthContext);
-
-  const [type, setType] = useState('');
-  const [name, setName] = useState('');
-  const [editors, setEditors] = useState([{key: 0, code: '', language: 'typescript'}]);
+  const [type, setType] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [editors, setEditors] = useState<INote[]>([{key: 0, code: '', language: 'typescript'}]);
 
   const { state } = useLocation();
 
+  const {loggedIn} = useContext(AuthContext);
 
+
+  /** po każdej zmianie state */
   useEffect(() => {
+    console.log(state);
+    
     if (!state) 
       return;
 
@@ -32,11 +36,12 @@ function NewNotePage() {
     else {
       setType(state.type);
       setName(state.name);
-      setEditors(state.code['code']);
+      setEditors(state.codes['codes']);
     }
   }, [state])
 
 
+  /** nadpisanie kodów */
   const handleEditorChange = (value?: string, index?: number) => {
     let chosen = editors[index ? index : 0];
     chosen.code = value ? value : '';
@@ -46,17 +51,20 @@ function NewNotePage() {
   }
 
 
+  /** dodanie kodu */
   const handleAddCode = () => {
     setEditors([...editors, {key: editors.length, code: '', language: 'css'}]);
   }
 
 
+  /** usunięcie kodu */
   const handleRemoveCode = (key: number) => {   
     let arr = editors.filter(e => e.key !== key);
     setEditors(arr);
   }
 
 
+  /** zmiana języka programowania */
   const handleChangeLang = (key: number, language: string) => {  
     let chosen = editors.find(e => e.key === key);
     let index = editors.indexOf(chosen!);
@@ -67,6 +75,7 @@ function NewNotePage() {
   }
 
   
+  /** zapisanie notatki */
   const handleSave = () => {  
     addNote(type, name, editors).then(() => {
       setEditors([])

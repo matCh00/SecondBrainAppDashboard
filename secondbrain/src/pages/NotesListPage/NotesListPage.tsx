@@ -15,6 +15,7 @@ function NotesListPage() {
   const [searchValue, setSearchValue] = useState<string>('');
 
   
+  /** po wyrenderowaniu komponentu */
   useMountEffect(() => {
     types.forEach(t => {
       setItems((i) => [...i, {label: t.value}]);      
@@ -24,25 +25,30 @@ function NotesListPage() {
   });
 
 
+  /** przed zniszczeniem komponentu */
   useUnmountEffect(() => {
     setItems([]);
   });
 
 
-  const search = () => {
-    return (
-      <InputText onChange={(e) => handleSearch(e.target.value)} placeholder='Find' className='w-full'/>
-    )
-  }
-
-
+  /** zmiana zakładek */
   const handleChangeIndex = (e: TabMenuTabChangeEvent) => {
     setActiveTab(e.value.label!); 
     setActiveIndex(e.index)
   }
 
+
+  /** filtracja */
   const handleSearch = (e: string) => {
     setSearchValue(e);
+  }
+
+
+  /** filtracja - element */
+  const search = () => {
+    return (
+      <InputText onChange={(e) => handleSearch(e.target.value)} placeholder='Find' className='w-full'/>
+    )
   }
   
 

@@ -6,10 +6,7 @@ import { MenuItem } from 'primereact/menuitem';
 import { Button } from 'primereact/button';
 import NotesListPage from './pages/NotesListPage/NotesListPage';
 import NewNotePage from './pages/NewNotePage/NewNotePage';
-import UsersPage from './pages/UsersPage/UsersPage';
-import SettingsPage from './pages/SettingsPage/SettingsPage';
 import { AuthContext } from './context/AuthContext';
-import { addNote } from './backend/api';
 
 export const githubUrlRoot = '/SecondBrainAppDashboard'
 
@@ -29,6 +26,7 @@ function App() {
   }
 
 
+  /** główbe tab menu - strony */
   const [items, setItems] = useState<MenuItem[]>([
     {
       label: 'Notes List',
@@ -44,23 +42,10 @@ function App() {
         navigate(githubUrlRoot + '/new', {state: {init: true}});
       },
     },
-    {
-      label: 'Users',
-      icon: 'pi pi-fw pi-users',
-      command: () => {
-        navigate(githubUrlRoot + '/users');
-      },
-    },
-    {
-      label: 'Settings',
-      icon: 'pi pi-fw pi-cog',
-      command: () => {
-        navigate(githubUrlRoot + '/settings');
-      },
-    },
   ]);
 
 
+  /** button do logowania */
   const end = (
     loggedIn 
     ? <Button label='Logout' icon="pi pi-sign-out" severity="danger" outlined onClick={() => handleLogout()} />
@@ -76,10 +61,6 @@ function App() {
         <Route path={githubUrlRoot + "/"} element={<NotesListPage />} />
 
         <Route path={githubUrlRoot + "/new"} element={<NewNotePage />} />
-
-        <Route path={githubUrlRoot + "/users"} element={<UsersPage />} />
-
-        <Route path={githubUrlRoot + "/settings"} element={<SettingsPage />} />
       </Routes>
     </>
   );
