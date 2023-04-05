@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import './list.css';
-import { getNotes } from '../../backend/api';
+import { deleteNote, getNotes } from '../../backend/api';
 import { types } from '../../models/Types';
 import { useUpdateEffect } from 'primereact/hooks';
 import { INoteGroup } from '../../models/INote';
@@ -9,6 +9,9 @@ import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { ConfirmPopup, confirmPopup } from 'primereact/confirmpopup';
+import { Toast } from 'primereact/toast';
 
 type Props = {
   type: string,
@@ -22,6 +25,31 @@ function List(props: Props) {
 
   const [notes, setNotes] = useState<INoteGroup[]>([]);
   const [notesFiltered, setNotesFiltered] = useState<INoteGroup[]>([]);
+
+
+
+  const toast = useRef<Toast>(null);
+
+  const accept = (name: string) => {
+    deleteNote(props.type, name).then(() => {
+      setNotes(notes => notes.filter(n => n.name !== name))
+    })
+      
+    toast.current!.show({ severity: 'success', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+  };
+
+  const reject = () => {
+    toast.current!.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+  };
+
+  const confirmDelete = (name: string) => {
+    confirmPopup({
+        message: 'Are you sure you want to delete note?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => accept(name),
+        reject
+    });
+  };
 
   
   useUpdateEffect (() => {
@@ -50,13 +78,11 @@ function List(props: Props) {
   }
 
   
-  const handleDelete = (name: string) => {
-    console.log(name);
-  }
-
-  
   return (
     <div className='p-3'>
+
+      <Toast ref={toast} />
+      <ConfirmPopup />
       
       {notesFiltered.map((i, index) => {
         return (
@@ -67,7 +93,7 @@ function List(props: Props) {
               return (
                 <div className='flex justify-content-end pt-3 pr-3 -mb-6'>
                   <Button label='Clone' severity="success" outlined onClick={() => {handleClone(i.name)}} className='mr-3'/>
-                  <Button label='Delete' severity="danger" outlined onClick={() => {handleDelete(i.name)}} disabled={!loggedIn}/>
+                  <Button label='Delete' severity="danger" outlined onClick={() => {confirmDelete(i.name)}} disabled={!loggedIn}/>
                 </div>
               )
             }} 

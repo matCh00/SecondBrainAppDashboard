@@ -20,7 +20,7 @@ function NotesListPage() {
       setItems((i) => [...i, {label: t.value}]);      
     })
 
-    setItems((i) => [...i, {template: search, className: 'ml-5'}]);
+    setItems((i) => [...i, {template: search, className: 'ml-3'}]);
   });
 
 
