@@ -22,9 +22,7 @@ function NewNotePage() {
 
 
   /** po każdej zmianie state */
-  useEffect(() => {
-    console.log(state);
-    
+  useEffect(() => {    
     if (!state) 
       return;
 

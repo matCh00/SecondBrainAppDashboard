@@ -32,6 +32,11 @@ export const login = (email: string, password: string) => {
 }
 
 
+export const asyncLogin = async (email: string, password: string) => {
+  return await signInWithEmailAndPassword(auth, email, password);
+}
+
+
 export const observe = () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
