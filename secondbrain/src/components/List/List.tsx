@@ -40,12 +40,12 @@ function List(props: Props) {
 
 
   /** po każdej zmianie props.searchValue i notes */
-  useUpdateEffect (() => {
+  useUpdateEffect (() => {    
     if (!props.searchValue || props.searchValue.length < 1) {
       setNotesFiltered(notes);
       return;
     }
-    let tempNotes = notes.filter(n => n.name.includes(props.searchValue));
+    let tempNotes = notes.filter(n => n.name.toLowerCase().includes(props.searchValue.toLowerCase()));
     setNotesFiltered(tempNotes);
   }, [props.searchValue, notes]);
 
