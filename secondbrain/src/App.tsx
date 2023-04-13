@@ -28,6 +28,7 @@ function App() {
   const toast = useRef<Toast>(null);
 
 
+  /** nasłuchiwanie zmian */
   useUpdateEffect(() => {
     if (loggedInStorage?.length > 0) {
       setLoggedIn(true);
@@ -70,6 +71,7 @@ function App() {
     setVisible(true);
   }
 
+  
   const handleLogout = () => {
 
     setLoggedIn(false);

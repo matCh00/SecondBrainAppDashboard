@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './listItem.css';
 import { useUpdateEffect } from 'primereact/hooks';
 import { INote } from '../../models/INote';
@@ -12,6 +12,12 @@ type Props = {
 function ListItem(props: Props) {
 
   const [codes, setCodes] = useState<INote[]>([]);
+
+  
+  /** po pierwszym wejściu */
+  useEffect (() => {
+    setCodes(props.code);
+  }, []);
 
   
   /** po każdej zmianie props.code */
@@ -28,7 +34,7 @@ function ListItem(props: Props) {
 
           <Fieldset legend={i.language} key={i.code + index} className='mb-3'>
             <Editor
-              height={'10vh'}
+              height={'20vh'}
               language={i.language}
               value={i.code}
               theme='vs-dark'

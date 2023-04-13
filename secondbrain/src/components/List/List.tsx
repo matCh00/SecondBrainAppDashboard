@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './list.css';
 import { deleteNote, getNotes } from '../../backend/api';
 import { types } from '../../models/Types';
@@ -27,6 +27,16 @@ function List(props: Props) {
   const navigate = useNavigate();
 
   const toast = useRef<Toast>(null);
+
+
+  /** po pierwszym wejściu */
+  useEffect (() => {
+    getNotes(types.find(t => t.name === props.type)?.value!).then(
+      (res) => {
+        setNotes(res);        
+      }
+    )
+  }, []);
 
 
   /** po każdej zmianie prop.type */
@@ -85,7 +95,7 @@ function List(props: Props) {
 
   
   return (
-    <div className='p-3'>
+    <div className='pt-3'>
 
       <Toast ref={toast} />
       <ConfirmPopup />
@@ -98,7 +108,7 @@ function List(props: Props) {
             header={() => {
               return (
                 <div className='flex justify-content-end pt-3 pr-3 -mb-6'>
-                  <Button label='Clone' severity="success" outlined onClick={() => {handleClone(i.name)}} className='mr-3'/>
+                  <Button label='Show / Clone' severity="success" outlined onClick={() => {handleClone(i.name)}} className='mr-3'/>
                   <Button label='Delete' severity="danger" outlined onClick={() => {confirmDelete(i.name)}} disabled={!loggedIn}/>
                 </div>
               )

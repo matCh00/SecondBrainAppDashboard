@@ -21,7 +21,7 @@ function NewNotePage() {
   const {loggedIn} = useContext(AuthContext);
 
 
-  /** po każdej zmianie state */
+  /** nasłuchiwanie zmian state */
   useEffect(() => {    
     if (!state) 
       return;
@@ -82,21 +82,18 @@ function NewNotePage() {
   
 
   return (
-    <div className='px-3 pb-3 flex flex-wrap justify-content-around'>
+    <div className='pb-3 flex flex-wrap justify-content-around'>
 
-      <div className="flex w-full mt-3 gap-3">
-        <Dropdown value={type} onChange={(e) => setType(e.value)} options={types} optionLabel="name" className='w-full' placeholder='Type'/>
-        <InputText value={name} onChange={(e) => setName(e.target.value)} placeholder='Name' className='w-full'/>
-      </div>
-
-      <div className="flex w-full mt-3 gap-3">
-        <Button icon="pi pi-plus" severity="success" outlined onClick={handleAddCode} className='w-full'/>
-        <Button label='Save' severity="info" outlined onClick={handleSave} className='w-full' disabled={!loggedIn || type.length===0 || name.length===0} />
+      <div className="flex w-full px-3 mt-3 gap-3">
+        <Dropdown value={type} onChange={(e) => setType(e.value)} options={types} optionLabel="name" className='w-2' placeholder='Type'/>
+        <InputText value={name} onChange={(e) => setName(e.target.value)} placeholder='Name' className='w-6'/>
+        <Button label='Save' severity="info" outlined onClick={handleSave} className='w-2' disabled={!loggedIn || type.length===0 || name.length===0} />
+        <Button icon="pi pi-plus" severity="success" outlined onClick={handleAddCode} className='w-2'/>
       </div>
 
       {editors.map((e, index) => {
         return(
-          <div className='flex mt-3' key={e.key}>
+          <div className='flex mt-4' key={e.key}>
             <Editor
               height={Math.max(80 / (editors?.length % 2 === 0 ? editors?.length/2 : Math.floor(editors?.length/2)+1), 30) + 'vh'}
               width='42vw'
