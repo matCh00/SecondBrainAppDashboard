@@ -39,3 +39,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.3;
 }
+
+
+.resize {
+  resize: vertical;
+  overflow: auto;
+  min-height: 10vh;
+}
+
+
+.p-fieldset .p-fieldset-legend {
+  padding: 0.4rem 1rem;
+  font-weight: 600;
+  margin-left: -1px;
+}
+.p-card .p-card-content {
+  padding-bottom: 0;
+}
+.p-card .p-card-body {
+  padding-bottom: 0.2rem;
+}

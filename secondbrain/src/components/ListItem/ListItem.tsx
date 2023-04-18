@@ -34,7 +34,7 @@ function ListItem(props: Props) {
 
           <Fieldset legend={i.language} key={i.code + index} className='mb-3'>
             <Editor
-              height={'20vh'}
+              className='resize'
               language={i.language}
               value={i.code}
               theme='vs-dark'
