@@ -7,4 +7,5 @@ export interface INote {
   code: string;
   language: string;
   key: number;
+  file: string;
 }

@@ -1,37 +1,56 @@
 import { firestore } from "./firebase";
 import { collection, getDocs, addDoc, doc, setDoc, query, where, deleteDoc } from "firebase/firestore"; 
 import { INote, INoteGroup } from './../models/INote';
+import { ConfirmPopup } from "primereact/confirmpopup";
+import { RefObject } from "react";
 
 
 const sectionsRef = collection(firestore, 'sections');
 
 
-export const addNote = async (type: string, name: string, code: INote[]) => {
+export const addNote = async (type: string, name: string, code: INote[], ref: RefObject<ConfirmPopup>): Promise<boolean> => {
 
-  const colRef = collection(sectionsRef, type, 'notes');
+  return new Promise<boolean>(async resolve => {
 
-  const q = query(colRef, where("name", '==', name));
-  const querySnapshot = await getDocs(q);
+    const colRef = collection(sectionsRef, type, 'notes');
 
-  if (querySnapshot && querySnapshot.docs[0] && querySnapshot.docs[0].id) {
-    const docRef = doc(colRef, querySnapshot.docs[0].id);
+    const q = query(colRef, where("name", '==', name));
+    const querySnapshot = await getDocs(q);
   
-    try {
-      await setDoc(docRef, {name: name, codes: code});      
-    } 
-    catch (e) {
-      console.error("Error updating document: ", e);
+    if (querySnapshot && querySnapshot.docs[0] && querySnapshot.docs[0].id) {
+      const docRef = doc(colRef, querySnapshot.docs[0].id);
+  
+      ref.current!.confirm({
+        message: 'Are you sure you want to override note?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: async () => {
+          try {
+            await setDoc(docRef, {name: name, codes: code});
+            resolve(true);  
+          } 
+          catch (e) {
+            console.error("Error updating document: ", e);
+            resolve(false);  
+          }
+        },
+        reject: () => {
+          resolve(false);  
+        }
+    });
     }
-  }
-
-  else {
-    try {
-      await addDoc(colRef, {name: name, codes: code});
-    } 
-    catch (e) {
-      console.error("Error adding document: ", e);
+  
+    else {
+  
+      try {
+        await addDoc(colRef, {name: name, codes: code});
+        resolve(true);  
+      } 
+      catch (e) {
+        console.error("Error adding document: ", e);
+        resolve(false);  
+      }
     }
-  }
+  })
 }
 
 
