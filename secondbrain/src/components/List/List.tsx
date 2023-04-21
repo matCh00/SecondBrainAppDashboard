@@ -95,7 +95,7 @@ function List(props: Props) {
 
   
   return (
-    <div className='pt-3'>
+    <div className='px-3 -mt-2'>
 
       <Toast ref={toast} />
       <ConfirmPopup />
@@ -114,7 +114,7 @@ function List(props: Props) {
               )
             }} 
             key={i.name + index} 
-            className='mb-3'
+            className='my-6'
           >
             <ListItem code={i.codes} />
           </Card>

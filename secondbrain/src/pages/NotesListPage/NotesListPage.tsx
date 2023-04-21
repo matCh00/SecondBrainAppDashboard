@@ -53,7 +53,7 @@ function NotesListPage() {
   
 
   return (
-    <div className='p-3'>
+    <div className='p-3 mt-2'>
 
       <TabMenu model={items} activeIndex={activeIndex} onTabChange={(e) => handleChangeIndex(e)}/>
      
