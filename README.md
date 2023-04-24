@@ -5,17 +5,40 @@ React + TypeScript + PrimeReact
 
 --------------------------
 
+## App
+
+React
+  + `npx create-react-app appName`
+  + `cd appName`
+  + `npm start`
+
+PrimeReact
+  + `npm install primereact`
+  + _index.css_
+    + @import "primereact/resources/themes/saga-blue/theme.css";
+    + @import "primereact/resources/primereact.min.css";
+    + @import "primeicons/primeicons.css";
+    + @import "primeflex/primeflex";
+
+## Docs
+
++ [primereact](https://primereact.org/)
+
+
+--------------------------
+
 ## Github Pages
 
- Code
-  + `package.json` 
+config
+  + _package.json_
     + "homepage": "https://match00.github.io/SecondBrainAppDashboard/",
-  + npm install --save gh-pages
-  + `package.json -> scripts` 
+  + `npm install --save gh-pages`
+  + _package.json_ ➜ scripts 
     + "predeploy": "npm run build",
     + "deploy": "gh-pages -d build",
-  + npm run deploy
+  + `npm run predeploy`
+  + `npm run deploy`
 
- GitHub
+GitHub
   + Pages
-    + `branch`  gh-pages
+    + _branch_  gh-pages
